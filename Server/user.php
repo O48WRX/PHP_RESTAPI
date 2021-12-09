@@ -46,11 +46,37 @@ function getUsers(){
 
 	$response = array();
 	$result = mysqli_query($connection, $query);
-	while($row=mysqli_fetch_assoc($result))
+	while($row=mysqli_fetch_assoc($result)) {
 		$response[] = $row;
+	}
 
 	header('Content-Type: application/json');
 	echo json_encode($response);
+}
+
+function insert_user() {
+	global $connection;
+	$data = json_decode(file_get_contents('php://input'), true);
+
+	$reqid = $data["id"];
+	$reqname = $data["name"];
+	$reqpassword = $data["password"];
+	$reqadmin = $data["isAdmin"];
+
+	$query="INSERT INTO user SET id='".$reqid."', name='".$reqname."', password='".$reqpassword."', isAdmin='".$reqadmin."'";
+
+	if(mysqli_query($connection, $query)){
+        $response = array(
+        'status' => 1,
+        'status_message' => 'Car inserted successfully'
+        );
+    }else{
+        $response = array(
+            'status' => 0,
+            'status_message' => 'Car insertion failed'
+        );
+    }
+    header('Content-Type: application/json');
 }
 
 ?>
