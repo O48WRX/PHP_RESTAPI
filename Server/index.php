@@ -1,6 +1,5 @@
 <?php
 include("connection.php");
-include("loggedin.php")
 
 $db = new dbObj();
 $connection = $db->getConnection();
@@ -125,6 +124,8 @@ function delete_movie($id){
 
     $data = json_decode(file_get_contents('php://input'), true);
     $user = checkLoggedIn($data["username"], $data["password"]);
+
+
     if (!$user or !$user["isAdmin"]) {
         header('HTTP/1.0 401 Unauthorized ');
         break;
@@ -135,12 +136,12 @@ function delete_movie($id){
     if(mysqli_query($connection, $query)){
         $response = array(
         'status' => 1,
-        'status_message' => 'Car deleted successfully'
+        'status_message' => 'Movie deleted successfully'
         );
     }else{
         $response = array(
             'status' => 0,
-            'status_message' => 'Car deletion failed'
+            'status_message' => 'Movie deletion failed'
         );
         header("Content-Type: application/json");
     }
