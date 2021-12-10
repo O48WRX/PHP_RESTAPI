@@ -1,5 +1,6 @@
 <?php
-include("connection.php");
+require_once("connection.php");
+require_once("user.php");
 
 $db = new dbObj();
 $connection = $db->getConnection();
@@ -64,7 +65,7 @@ function insert_movie(){
     $user = checkLoggedIn($data["username"], $data["password"]);
     if (!$user or !$user["isAdmin"]) {
         header('HTTP/1.0 401 Unauthorized ');
-        break;
+        return;
     }
 
     $reqid = $data["id"];
@@ -95,7 +96,7 @@ function update_movie(){
     $user = checkLoggedIn($data["username"], $data["password"]);
     if (!$user or !$user["isAdmin"]) {
         header('HTTP/1.0 401 Unauthorized ');
-        break;
+        return;
     }
 
     $reqid = $data["id"];
@@ -128,7 +129,7 @@ function delete_movie($id){
 
     if (!$user or !$user["isAdmin"]) {
         header('HTTP/1.0 401 Unauthorized ');
-        break;
+        return;
     }
 
     $query = "DELETE FROM movie WHERE id = ".$id;

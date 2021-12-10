@@ -5,10 +5,12 @@ Class dbObj{
     var $username = "root";
     var $pw = "";
     var $dbname = "restapi";
+    var $port=3305;
+    var $socket="";
     var $conn;
 
     function getConnection(){
-        $connection = mysqli_connect($this->servername, $this->username, $this->pw, $this->dbname) or die("Connection failed". mysqli_connect_error());
+        $connection = mysqli_connect($this->servername, $this->username, $this->pw, $this->dbname, $this->port, $this->socket) or die("Connection failed". mysqli_connect_error());
 
         if(mysqli_connect_errno()){
             printf("Connection failed");

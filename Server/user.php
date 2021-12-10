@@ -1,6 +1,8 @@
 <?php
 
-include("connection.php");
+require_once("connection.php");
+$db = new dbObj();
+$connection = $db->getConnection();
 
 // HTTP METHODS HASZNÁLATA
 
