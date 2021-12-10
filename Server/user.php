@@ -8,8 +8,8 @@ $request = $_SERVER['REQUEST_METHOD'];
 
 switch ($request) {
 	case "GET":
-		if (!empty($_GET["username"])) {
-			$users = login($_GET["username"], $_GET["password"]);
+		if (!empty($_GET["active_username"])) {
+			$users = login($_GET["active_username"], $_GET["active_password"]);
 		}
 		else {
 			$users = getUsers();
@@ -17,8 +17,8 @@ switch ($request) {
 		echo json_encode($users);
 		break;
 	case "POST":
-		if (!empty($_GET["username"])) {
-			$user = checkLoggedIn($_GET["username"], $_GET["password"]);
+		if (!empty($_GET["active_username"])) {
+			$user = checkLoggedIn($_GET["active_username"], $_GET["active_password"]);
 			if (!empty($user)) {
 				insert_user();
 			}
@@ -29,10 +29,27 @@ switch ($request) {
 		echo json_encode($user);
 		break;
 	case "PUT":
-		print("User update-elése");
+		if (!empty($_GET["active_username"])) {
+			$user = checkLoggedIn($_GET["active_username"], $_GET["active_password"]);
+			if (!empty($user)) {
+				update_user();
+			}
+			else {
+				header("HTTP/1.0 401 Unauthorized");
+			}
+		}
 		break;
 	case "DELETE":
-		print("User delete-elése");
+		if (!empty($_GET["active_username"])) {
+			$user = checkLoggedIn($_GET["active_username"], $_GET["active_password"]);
+			if (!empty($user)) {
+				$id = intval($_GET["id"]);
+				delete_user($id);
+			}
+			else {
+				header("HTTP/1.0 401 Unauthorized");
+			}
+		}
 		break;
 	default:
 		header('HTTP/1.1 405 Method Not Allowed');
@@ -86,6 +103,8 @@ function insert_user() {
         );
     }
     header('Content-Type: application/json');
+
+    echo json_encode($response);
 }
 
 function update_user() {
@@ -113,12 +132,38 @@ function update_user() {
                 'status_message' => 'User update failed'
             );
         }
+        header('Content-Type: application/json');
     }else{
         $response = array(
             'status' => 0,
             'status_message' => 'User not found'
         );
+        header('Content-Type: application/json');
     }
+    echo json_encode($response);
+}
+
+function delete_user($id) {
+	global $connection;
+
+	$data = json_decode(file_get_contents('php://input'), true);
+
+	$query = "DELETE FROM user WHERE id='".$id."'";
+
+	if(mysqli_query($connection, $query)){
+        $response = array(
+            'status' => 1,
+            'status_message' => 'User deleted successfully'
+        );
+    }else{
+        $response = array(
+            'status' => 0,
+            'status_message' => 'User deletion failed'
+        );
+    }
+    header('Content-Type: application/json');
+
+    echo json_encode($response);
 }
 
 function checkLoggedIn($u, $p) {
