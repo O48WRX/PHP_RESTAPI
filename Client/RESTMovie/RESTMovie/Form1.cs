@@ -25,7 +25,7 @@ namespace RESTMovie
             string server = "127.0.0.1";
             string port = "80";
 
-            client = new RestClient(string.Format("http://{0}:{1}/Server/index.php",server, port));
+            client = new RestClient(string.Format("http://{0}:{1}/Server/user.php",server, port));
         }
 
         private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
@@ -86,6 +86,14 @@ namespace RESTMovie
                 MessageBox.Show("Invalid login credentials!");
                 return;
             }
+        }
+
+        private void F1_LOGOUT_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Successfully logged out!");
+            UserLoggedIn = null;
+            LoginBox.Visible = true;
+            F1_LOGOUT.Visible = false;
         }
     }
 }

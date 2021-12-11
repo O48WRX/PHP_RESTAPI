@@ -1,6 +1,7 @@
 <?php
 
 require_once("connection.php");
+require_once("common.php");
 $db = new dbObj();
 $connection = $db->getConnection();
 
@@ -10,8 +11,8 @@ $request = $_SERVER['REQUEST_METHOD'];
 
 switch ($request) {
 	case "GET":
-		if (!empty($_GET["active_username"])) {
-			$users = login($_GET["active_username"], $_GET["active_password"]);
+		if (!empty($_GET["username"])) {
+			$users = login($_GET["username"], $_GET["password"]);
 		}
 		else {
 			$users = getUsers();
@@ -19,39 +20,19 @@ switch ($request) {
 		echo json_encode($users);
 		break;
 	case "POST":
-		if (!empty($_GET["active_username"])) {
-			$user = checkLoggedIn($_GET["active_username"], $_GET["active_password"]);
-			if (!empty($user)) {
-				insert_user();
-			}
-			else {
-				header("HTTP/1.0 401 Unauthorized");
-			}
-		}
-		echo json_encode($user);
+		$content = file_get_contents('php://input');
+		$data = json_decode($content, true);
+		insert_user($data["username"],$data["password"]);
 		break;
 	case "PUT":
-		if (!empty($_GET["active_username"])) {
-			$user = checkLoggedIn($_GET["active_username"], $_GET["active_password"]);
-			if (!empty($user)) {
-				update_user();
-			}
-			else {
-				header("HTTP/1.0 401 Unauthorized");
-			}
-		}
+		$content = file_get_contents('php://input');
+		$data = json_decode($content, true);
+		update_user($data["id"], $data["username"], $data["password"], $data["isAdmin"]);
 		break;
 	case "DELETE":
-		if (!empty($_GET["active_username"])) {
-			$user = checkLoggedIn($_GET["active_username"], $_GET["active_password"]);
-			if (!empty($user)) {
-				$id = intval($_GET["id"]);
-				delete_user($id);
-			}
-			else {
-				header("HTTP/1.0 401 Unauthorized");
-			}
-		}
+		$content = file_get_contents('php://input');
+		$data = json_decode($content, true);
+		delete_user($data["id"]);
 		break;
 	default:
 		header('HTTP/1.1 405 Method Not Allowed');
@@ -63,118 +44,38 @@ function login($u, $p) {
 	global $connection;
 	
 	// Perform query
-	$result = $connection -> query("SELECT id, name, password, isAdmin FROM user WHERE name = '".$u."' AND password = '".$p."'");
+	$result = $connection -> query("SELECT id, name, password, isAdmin FROM user WHERE name = '$u' AND password = ('$p')");
 	
-	return $result->fetch_all(MYSQLI_ASSOC)[0];
+	return $result->fetch_all(MYSQLI_ASSOC);
 }
 
 function getUsers(){
 	global $connection;
-	$query = "SELECT * FROM user";
-
-	$response = array();
-	$result = mysqli_query($connection, $query);
-	while($row=mysqli_fetch_assoc($result)) {
-		$response[] = $row;
-	}
-
-	header('Content-Type: application/json');
-	echo json_encode($response);
+	
+	// Perform query
+	$result = $connection -> query("SELECT id, name, password, isAdmin FROM user");
+	
+	return $result->fetch_all(MYSQLI_ASSOC);
 }
 
-function insert_user() {
+function insert_user($name, $pw) {
 	global $connection;
-	$data = json_decode(file_get_contents('php://input'), true);
-
-	$reqid = $data["id"];
-	$reqname = $data["name"];
-	$reqpassword = $data["password"];
-	$reqadmin = $data["isAdmin"];
-
-	$query="INSERT INTO user SET id='".$reqid."', name='".$reqname."', password='".$reqpassword."', isAdmin='".$reqadmin."'";
-
-	if(mysqli_query($connection, $query)){
-        $response = array(
-        'status' => 1,
-        'status_message' => 'User inserted successfully'
-        );
-    }else{
-        $response = array(
-            'status' => 0,
-            'status_message' => 'User insertion failed'
-        );
-    }
-    header('Content-Type: application/json');
-
-    echo json_encode($response);
+	
+	// Perform query
+	$result = $connection -> query("INSERT INTO user (name, password, isAdmin) VALUES ('$name', '$pw', 0)");
 }
 
-function update_user() {
+function update_user($id, $username, $password, $isAdmin) {
 	global $connection;
 
-	$data = json_decode(file_get_contents('php://input'), true);
-
-	$reqid = $data["id"];
-	$reqname = $data["name"];
-	$reqpassword = $data["password"];
-	$reqadmin = $data["isAdmin"];
-
-	$query1 = "SELECT * from user WHERE id='".$reqid."' LIMIT 1";
-	if(mysqli_query($connection, $query1)){
-        $query = "UPDATE user SET id='".$reqid."', name='".$reqname."', password='".$reqpassword."', isAdmin='".$reqadmin."'";
-
-        if(mysqli_query($connection, $query)){
-            $response = array(
-                'status' => 1,
-                'status_message' => 'User updated successfully'
-            );
-        }else{
-            $response = array(
-                'status' => 0,
-                'status_message' => 'User update failed'
-            );
-        }
-        header('Content-Type: application/json');
-    }else{
-        $response = array(
-            'status' => 0,
-            'status_message' => 'User not found'
-        );
-        header('Content-Type: application/json');
-    }
-    echo json_encode($response);
+	// Perform query
+	$connection -> query("UPDATE user SET name='$username', password='$password', isAdmin='$isAdmin' WHERE id ='$id'");
 }
 
 function delete_user($id) {
 	global $connection;
-
-	$data = json_decode(file_get_contents('php://input'), true);
-
-	$query = "DELETE FROM user WHERE id='".$id."'";
-
-	if(mysqli_query($connection, $query)){
-        $response = array(
-            'status' => 1,
-            'status_message' => 'User deleted successfully'
-        );
-    }else{
-        $response = array(
-            'status' => 0,
-            'status_message' => 'User deletion failed'
-        );
-    }
-    header('Content-Type: application/json');
-
-    echo json_encode($response);
-}
-
-function checkLoggedIn($u, $p) {
-	global $connection;
 	
 	// Perform query
-	$result = $connection -> query("SELECT id, name, password, isAdmin FROM user WHERE name = '".$u."' AND password = '".$p."'");
-	
-	return $result->fetch_all(MYSQLI_ASSOC)[0];
+	$connection -> query("DELETE FROM user WHERE id = '$id'");
 }
-
 ?>

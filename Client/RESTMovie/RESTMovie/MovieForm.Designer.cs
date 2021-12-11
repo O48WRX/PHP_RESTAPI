@@ -29,12 +29,12 @@ namespace RESTMovie
         /// </summary>
         private void InitializeComponent()
         {
-            this.button3 = new System.Windows.Forms.Button();
+            this.INS = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.del = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.titleBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
@@ -42,43 +42,46 @@ namespace RESTMovie
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
-            // button3
+            // INS
             // 
-            this.button3.Location = new System.Drawing.Point(819, 198);
-            this.button3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(181, 22);
-            this.button3.TabIndex = 9;
-            this.button3.Text = "Add";
-            this.button3.UseVisualStyleBackColor = true;
+            this.INS.Location = new System.Drawing.Point(881, 205);
+            this.INS.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.INS.Name = "INS";
+            this.INS.Size = new System.Drawing.Size(181, 22);
+            this.INS.TabIndex = 9;
+            this.INS.Text = "Add";
+            this.INS.UseVisualStyleBackColor = true;
+            this.INS.Click += new System.EventHandler(this.INS_Click);
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(819, 248);
+            this.button2.Location = new System.Drawing.Point(881, 255);
             this.button2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(181, 22);
             this.button2.TabIndex = 8;
             this.button2.Text = "Update";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
-            // button1
+            // del
             // 
-            this.button1.Location = new System.Drawing.Point(818, 297);
-            this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(181, 22);
-            this.button1.TabIndex = 7;
-            this.button1.Text = "Delete";
-            this.button1.UseVisualStyleBackColor = true;
+            this.del.Location = new System.Drawing.Point(880, 304);
+            this.del.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.del.Name = "del";
+            this.del.Size = new System.Drawing.Size(181, 22);
+            this.del.TabIndex = 7;
+            this.del.Text = "Delete";
+            this.del.UseVisualStyleBackColor = true;
+            this.del.Click += new System.EventHandler(this.del_Click);
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.textBox1);
+            this.groupBox1.Controls.Add(this.titleBox);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Location = new System.Drawing.Point(732, 18);
+            this.groupBox1.Location = new System.Drawing.Point(794, 25);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -95,13 +98,13 @@ namespace RESTMovie
             this.label3.Size = new System.Drawing.Size(0, 15);
             this.label3.TabIndex = 3;
             // 
-            // textBox1
+            // titleBox
             // 
-            this.textBox1.Location = new System.Drawing.Point(74, 65);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(154, 23);
-            this.textBox1.TabIndex = 2;
+            this.titleBox.Location = new System.Drawing.Point(74, 65);
+            this.titleBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.titleBox.Name = "titleBox";
+            this.titleBox.Size = new System.Drawing.Size(154, 23);
+            this.titleBox.TabIndex = 2;
             // 
             // label2
             // 
@@ -124,7 +127,7 @@ namespace RESTMovie
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(-113, 20);
+            this.dataGridView1.Location = new System.Drawing.Point(-51, 27);
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
@@ -133,15 +136,16 @@ namespace RESTMovie
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(800, 496);
             this.dataGridView1.TabIndex = 5;
+            this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             // 
             // MovieForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1078, 549);
-            this.Controls.Add(this.button3);
+            this.ClientSize = new System.Drawing.Size(1185, 549);
+            this.Controls.Add(this.INS);
             this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.del);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.dataGridView1);
             this.Name = "MovieForm";
@@ -155,14 +159,14 @@ namespace RESTMovie
 
         #endregion
 
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.Button INS;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button del;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox titleBox;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.DataGridView dataGridView1;
     }
 }

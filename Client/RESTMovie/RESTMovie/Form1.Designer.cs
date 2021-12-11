@@ -53,6 +53,7 @@ namespace RESTMovie
             this.F1_LOGOUT.Text = "Log out";
             this.F1_LOGOUT.UseVisualStyleBackColor = true;
             this.F1_LOGOUT.Visible = false;
+            this.F1_LOGOUT.Click += new System.EventHandler(this.F1_LOGOUT_Click);
             // 
             // LoginBox
             // 
