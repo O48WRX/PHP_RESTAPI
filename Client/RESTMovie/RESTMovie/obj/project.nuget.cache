@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "4DRf+qNDS/uKu3sibm/fQMTTTNkVlnTZZPlw6m0qpMLBhT3IBMBjH/ISR272+keptVZigPYlfwg6Beu8V2jClA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\kardy\\Desktop\\Egyetem\\Szolgáltatás Orientált Programozás\\O48WRX_RESTAPI\\PHP_RESTAPI\\Client\\RESTMovie\\RESTMovie\\RESTMovie.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\kardy\\.nuget\\packages\\restsharp\\106.11.7\\restsharp.106.11.7.nupkg.sha512"
+  ],
+  "logs": []
+}
