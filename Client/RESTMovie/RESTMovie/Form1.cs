@@ -21,6 +21,7 @@ namespace RESTMovie
         {
             InitializeComponent();
             F1_LOGOUT.Visible = false;
+            welcomelabel.Visible = false;
 
             string server = "127.0.0.1";
             string port = "80";
@@ -35,7 +36,7 @@ namespace RESTMovie
                 UserForm form = new UserForm();
                 form.ShowDialog();
             }
-            else
+            else if (e.ClickedItem == MoviesMenuStripItem)
             {
                 MovieForm form = new MovieForm();
                 form.ShowDialog();
@@ -77,6 +78,9 @@ namespace RESTMovie
                     UserLoggedIn = new User(deserializedJSON[i].Id, deserializedJSON[i].Name, deserializedJSON[i].Password, deserializedJSON[i].isAdmin);
                     LoginBox.Visible = false;
                     F1_LOGOUT.Visible = true;
+                    welcomelabel.Text = String.Format("Welcome {0}, thank you for logging in!", UserLoggedIn.Name);
+                    welcomelabel.Visible = true;
+
                     return;
                 }
             }
@@ -92,8 +96,21 @@ namespace RESTMovie
         {
             MessageBox.Show("Successfully logged out!");
             UserLoggedIn = null;
+            welcomelabel.Text = "";
+            welcomelabel.Visible = false;
             LoginBox.Visible = true;
             F1_LOGOUT.Visible = false;
+        }
+
+        private void soldTicketsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ticketsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            TicketsForm ticketsform = new TicketsForm();
+            ticketsform.ShowDialog();
         }
     }
 }

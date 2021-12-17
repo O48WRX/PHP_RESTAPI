@@ -12,21 +12,20 @@ using System.Windows.Forms;
 
 namespace RESTMovie
 {
-    public partial class MovieForm : Form
+    public partial class TicketsForm : Form
     {
-        RestClient client = null;
-        public MovieForm()
+        static RestClient client;
+        public TicketsForm()
         {
             InitializeComponent();
-
             string server = "127.0.0.1";
             string port = "80";
 
-            client = new RestClient(string.Format("http://{0}:{1}/Server/index.php", server, port));
-            Movies2DataGrid();
+            client = new RestClient(string.Format("http://{0}:{1}/Server/tickets.php", server, port));
+            Tickets2DataGrid();
         }
 
-        private void Movies2DataGrid()
+        public void Tickets2DataGrid()
         {
             var request = new RestRequest(Method.GET);
             request.RequestFormat = DataFormat.Json;
@@ -39,29 +38,56 @@ namespace RESTMovie
                 return;
             }
 
-            List<Movie> movies = new JsonSerializer().Deserialize<List<Movie>>(response);
+            List<Tickets> tickets = new JsonSerializer().Deserialize<List<Tickets>>(response);
 
-            dataGridView1.DataSource = movies;
-
+            TicketsGrid.DataSource = tickets;
         }
 
-        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void TicketsGrid_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            label3.Text = dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString();
-            titleBox.Text = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
+            ticketIdBox.Text = TicketsGrid.Rows[e.RowIndex].Cells[0].Value.ToString();
+            movieIdBox.Text = TicketsGrid.Rows[e.RowIndex].Cells[1].Value.ToString();
+            movieTitleBox.Text = TicketsGrid.Rows[e.RowIndex].Cells[2].Value.ToString();
+            streamTimeBox.Text = TicketsGrid.Rows[e.RowIndex].Cells[3].Value.ToString();
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void add_button_Click(object sender, EventArgs e)
+        {
+            var request = new RestRequest(Method.POST);
+            request.RequestFormat = DataFormat.Json;
+
+
+            request.AddJsonBody(new
+            {
+                ticket_id = int.Parse(ticketIdBox.Text),
+                movie_id = int.Parse(movieIdBox.Text),
+                movie_title = movieTitleBox.Text,
+                stream_time = streamTimeBox.Text,
+            });
+
+
+            var response = client.Execute(request);
+
+            if (response.StatusCode != System.Net.HttpStatusCode.OK)
+            {
+                MessageBox.Show(response.StatusDescription);
+                return;
+            }
+
+            Tickets2DataGrid();
+        }
+
+        private void upd_button_Click(object sender, EventArgs e)
         {
             var request = new RestRequest(Method.PUT);
             request.RequestFormat = DataFormat.Json;
 
             request.AddJsonBody(new
             {
-                id = int.Parse(label3.Text),
-                title = titleBox.Text,
-                username = Form1.UserLoggedIn.Name,
-                password = Form1.UserLoggedIn.Password,
+                ticket_id = int.Parse(ticketIdBox.Text),
+                movie_id = int.Parse(movieIdBox.Text),
+                movie_title = movieTitleBox.Text,
+                stream_time = streamTimeBox.Text,
             });
 
 
@@ -72,48 +98,18 @@ namespace RESTMovie
                 MessageBox.Show(response.StatusDescription);
                 return;
             }
-            Movies2DataGrid();
+
+            Tickets2DataGrid();
         }
 
-        private void INS_Click(object sender, EventArgs e)
-        {
-            var request = new RestRequest(Method.POST);
-            request.RequestFormat = DataFormat.Json;
-
-            MessageBox.Show(titleBox.Text);
-            request.AddJsonBody(new
-            {
-                title = titleBox.Text,
-                username = Form1.UserLoggedIn.Name,
-                password = Form1.UserLoggedIn.Password
-            });
-
-
-            MessageBox.Show(String.Format("{0}", request));
-            var response = client.Execute(request);
-
-
-
-            if (response.StatusCode != System.Net.HttpStatusCode.OK)
-            {
-                MessageBox.Show(response.StatusDescription);
-                return;
-            }
-
-            Movies2DataGrid();
-        }
-
-        private void del_Click(object sender, EventArgs e)
+        private void del_button_Click(object sender, EventArgs e)
         {
             var request = new RestRequest(Method.DELETE);
             request.RequestFormat = DataFormat.Json;
 
             request.AddJsonBody(new
             {
-                id = int.Parse(label3.Text),
-                username = Form1.UserLoggedIn.Name,
-                password = Form1.UserLoggedIn.Password
-
+                id = int.Parse(ticketIdLabel.Text),
             });
 
 
@@ -125,7 +121,7 @@ namespace RESTMovie
                 return;
             }
 
-            Movies2DataGrid();
+            Tickets2DataGrid();
         }
     }
 }

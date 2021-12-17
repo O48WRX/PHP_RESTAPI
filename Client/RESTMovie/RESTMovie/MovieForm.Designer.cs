@@ -29,6 +29,7 @@ namespace RESTMovie
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MovieForm));
             this.INS = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.del = new System.Windows.Forms.Button();
@@ -44,39 +45,46 @@ namespace RESTMovie
             // 
             // INS
             // 
+            this.INS.BackColor = System.Drawing.Color.Maroon;
+            this.INS.ForeColor = System.Drawing.Color.White;
             this.INS.Location = new System.Drawing.Point(881, 205);
             this.INS.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.INS.Name = "INS";
             this.INS.Size = new System.Drawing.Size(181, 22);
             this.INS.TabIndex = 9;
             this.INS.Text = "Add";
-            this.INS.UseVisualStyleBackColor = true;
+            this.INS.UseVisualStyleBackColor = false;
             this.INS.Click += new System.EventHandler(this.INS_Click);
             // 
             // button2
             // 
+            this.button2.BackColor = System.Drawing.Color.DarkRed;
+            this.button2.ForeColor = System.Drawing.Color.White;
             this.button2.Location = new System.Drawing.Point(881, 255);
             this.button2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(181, 22);
             this.button2.TabIndex = 8;
             this.button2.Text = "Update";
-            this.button2.UseVisualStyleBackColor = true;
+            this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // del
             // 
+            this.del.BackColor = System.Drawing.Color.DarkRed;
+            this.del.ForeColor = System.Drawing.Color.White;
             this.del.Location = new System.Drawing.Point(880, 304);
             this.del.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.del.Name = "del";
             this.del.Size = new System.Drawing.Size(181, 22);
             this.del.TabIndex = 7;
             this.del.Text = "Delete";
-            this.del.UseVisualStyleBackColor = true;
+            this.del.UseVisualStyleBackColor = false;
             this.del.Click += new System.EventHandler(this.del_Click);
             // 
             // groupBox1
             // 
+            this.groupBox1.BackColor = System.Drawing.Color.DarkRed;
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.titleBox);
             this.groupBox1.Controls.Add(this.label2);
@@ -100,6 +108,7 @@ namespace RESTMovie
             // 
             // titleBox
             // 
+            this.titleBox.BackColor = System.Drawing.Color.Maroon;
             this.titleBox.Location = new System.Drawing.Point(74, 65);
             this.titleBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.titleBox.Name = "titleBox";
@@ -109,6 +118,7 @@ namespace RESTMovie
             // label2
             // 
             this.label2.AutoSize = true;
+            this.label2.ForeColor = System.Drawing.Color.White;
             this.label2.Location = new System.Drawing.Point(21, 69);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(32, 15);
@@ -118,6 +128,7 @@ namespace RESTMovie
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.ForeColor = System.Drawing.Color.White;
             this.label1.Location = new System.Drawing.Point(22, 37);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(20, 15);
@@ -126,7 +137,9 @@ namespace RESTMovie
             // 
             // dataGridView1
             // 
+            this.dataGridView1.BackgroundColor = System.Drawing.Color.Maroon;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.GridColor = System.Drawing.Color.White;
             this.dataGridView1.Location = new System.Drawing.Point(-51, 27);
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dataGridView1.MultiSelect = false;
@@ -142,7 +155,8 @@ namespace RESTMovie
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1185, 549);
+            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
+            this.ClientSize = new System.Drawing.Size(1140, 610);
             this.Controls.Add(this.INS);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.del);
