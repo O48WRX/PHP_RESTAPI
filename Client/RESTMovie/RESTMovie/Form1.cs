@@ -33,6 +33,11 @@ namespace RESTMovie
         {
             if (e.ClickedItem == Users_MenuStripItem)
             {
+                if (UserLoggedIn == null ||UserLoggedIn.isAdmin != 1)
+                {
+                    MessageBox.Show("Nem jogosult a tábla megtekintéséhez!");
+                    return;
+                }
                 UserForm form = new UserForm();
                 form.ShowDialog();
             }
@@ -104,7 +109,13 @@ namespace RESTMovie
 
         private void soldTicketsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            if (UserLoggedIn == null || UserLoggedIn.isAdmin != 1)
+            {
+                MessageBox.Show("Nincs jogosultsága megtekinteni a táblát!");
+                return;
+            }
+            SoldTicketsForm soldticketsform = new SoldTicketsForm();
+            soldticketsform.ShowDialog();
         }
 
         private void ticketsToolStripMenuItem_Click(object sender, EventArgs e)

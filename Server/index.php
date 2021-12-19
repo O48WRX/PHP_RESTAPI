@@ -45,7 +45,7 @@ switch($request_method){
         $data = json_decode($content, true); // asszociatív tömb
         $user = checkLoggedIn($data["username"], $data["password"]);
         $admin = checkAdmIn($data["username"], $data["password"]);
-        if(mysqli_num_rows($user) == 0 or mysqli_num_rows($admin) == 0){
+        if(!$user or !$admin) {
         header('HTTP/1.0 401 Unauthorized ');
         break;
         }

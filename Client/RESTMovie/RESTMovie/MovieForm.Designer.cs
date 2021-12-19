@@ -34,6 +34,7 @@ namespace RESTMovie
             this.button2 = new System.Windows.Forms.Button();
             this.del = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.idBox = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.titleBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -85,6 +86,7 @@ namespace RESTMovie
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.Color.DarkRed;
+            this.groupBox1.Controls.Add(this.idBox);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.titleBox);
             this.groupBox1.Controls.Add(this.label2);
@@ -97,6 +99,15 @@ namespace RESTMovie
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Movie properties";
+            // 
+            // idBox
+            // 
+            this.idBox.BackColor = System.Drawing.Color.Maroon;
+            this.idBox.Location = new System.Drawing.Point(74, 34);
+            this.idBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.idBox.Name = "idBox";
+            this.idBox.Size = new System.Drawing.Size(154, 23);
+            this.idBox.TabIndex = 4;
             // 
             // label3
             // 
@@ -182,5 +193,6 @@ namespace RESTMovie
         private System.Windows.Forms.TextBox titleBox;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox idBox;
     }
 }

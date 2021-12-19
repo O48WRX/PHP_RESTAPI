@@ -22,3 +22,4 @@ C:\Users\kardy\Desktop\Egyetem\Szolgáltatás Orientált Programozás\O48WRX_RES
 C:\Users\kardy\Desktop\Egyetem\Szolgáltatás Orientált Programozás\O48WRX_RESTAPI\PHP_RESTAPI\Client\RESTMovie\RESTMovie\obj\Debug\net5.0-windows\RESTMovie.UserForm.resources
 C:\Users\kardy\Desktop\Egyetem\Szolgáltatás Orientált Programozás\O48WRX_RESTAPI\PHP_RESTAPI\Client\RESTMovie\RESTMovie\obj\Debug\net5.0-windows\RESTMovie.Properties.Resources.resources
 C:\Users\kardy\Desktop\Egyetem\Szolgáltatás Orientált Programozás\O48WRX_RESTAPI\PHP_RESTAPI\Client\RESTMovie\RESTMovie\obj\Debug\net5.0-windows\RESTMovie.TicketsForm.resources
+C:\Users\kardy\Desktop\Egyetem\Szolgáltatás Orientált Programozás\O48WRX_RESTAPI\PHP_RESTAPI\Client\RESTMovie\RESTMovie\obj\Debug\net5.0-windows\RESTMovie.SoldTicketsForm.resources

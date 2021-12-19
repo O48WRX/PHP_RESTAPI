@@ -1,4 +1,6 @@
 <?php
+global $db;
+
 function checkLoggedIn($u, $p) {
 	global $connection;
 	
@@ -9,10 +11,10 @@ function checkLoggedIn($u, $p) {
 }
 
 function checkAdmIn($username, $password) {
-	global $con;
+	global $connection;
 	
 	// Perform query
-	$result = $con -> query("SELECT id, name, password, isAdmin FROM user WHERE name = '$username' AND password = '$password' AND isAdmin=1");
+	$result = $connection -> query("SELECT id, name, password, isAdmin FROM user WHERE name = '$username' AND password = '$password' AND isAdmin=1");
 	
 	return $result->fetch_all(MYSQLI_ASSOC);
 }

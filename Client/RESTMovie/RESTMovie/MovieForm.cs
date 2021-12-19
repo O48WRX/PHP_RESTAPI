@@ -19,6 +19,21 @@ namespace RESTMovie
         {
             InitializeComponent();
 
+            if (Form1.UserLoggedIn == null || Form1.UserLoggedIn.isAdmin != 1)
+            {
+                groupBox1.Visible = false;
+                INS.Visible = false;
+                button2.Visible = false;
+                del.Visible = false;
+            }
+            else
+            {
+                groupBox1.Visible = true;
+                INS.Visible = true;
+                button2.Visible = true;
+                del.Visible = true;
+            }
+
             string server = "127.0.0.1";
             string port = "80";
 
@@ -47,7 +62,7 @@ namespace RESTMovie
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            label3.Text = dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString();
+            idBox.Text = dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString();
             titleBox.Text = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
         }
 
@@ -58,7 +73,7 @@ namespace RESTMovie
 
             request.AddJsonBody(new
             {
-                id = int.Parse(label3.Text),
+                id = int.Parse(idBox.Text),
                 title = titleBox.Text,
                 username = Form1.UserLoggedIn.Name,
                 password = Form1.UserLoggedIn.Password,
@@ -110,10 +125,9 @@ namespace RESTMovie
 
             request.AddJsonBody(new
             {
-                id = int.Parse(label3.Text),
+                id = int.Parse(idBox.Text),
                 username = Form1.UserLoggedIn.Name,
                 password = Form1.UserLoggedIn.Password
-
             });
 
 

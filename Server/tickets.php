@@ -62,14 +62,14 @@ function insert_ticket($ticketId, $MovieId, $movieTitle, $streamTime) {
 	global $connection;
 	
 	// Perform query
-	$result = $connection -> query("INSERT INTO tickets (ticket_id, movie_id, movie_title, stream_time) VALUES ('$ticketId', '$MovieId', '$movieTitle', '$streamTime')");
+	$result = $connection -> query("INSERT INTO tickets SET ticket_id = '$ticketId', movie_id = '$MovieId', movie_title = '$movieTitle', stream_time = '$streamTime'");
 }
 
 function update_ticket($ticketId, $MovieId, $movieTitle, $streamTime) {
 	global $connection;
 
 	// Perform query
-	$connection -> query("UPDATE tickets SET ticket_id='$ticketId', movie_id='$MovieId', movie_title='$movieTitle' WHERE ticket_id ='$ticketId'");
+	$connection -> query("UPDATE tickets SET ticket_id ='$ticketId', movie_id ='$MovieId', movie_title ='$movieTitle' WHERE ticket_id ='$ticketId'");
 }
 
 function delete_ticket($ticketId) {

@@ -22,12 +22,12 @@ switch ($request) {
 	case "POST":
 		$content = file_get_contents('php://input');
 		$data = json_decode($content, true);
-		insert_soldticket($data["ticket_id"],$data["movie_id"],$data["movie_title"],$data["stream_time"]);
+		insert_soldticket($data["ticket_id"],$data["user_id"]);
 		break;
 	case "PUT":
 		$content = file_get_contents('php://input');
 		$data = json_decode($content, true);
-		update_soldticket($data["ticket_id"], $data["movie_id"], $data["movie_title"], $data["stream_time"]);
+		update_soldticket($data["id"], $data["ticket_id"], $data["user_id"]);
 		break;
 	case "DELETE":
 		$content = file_get_contents('php://input');
@@ -58,11 +58,11 @@ function get_soldticket_by_id($id=0){
     return $result->fetch_all(MYSQLI_ASSOC);
 }
 
-function insert_soldticket($id, $ticket_id, $user_id) {
+function insert_soldticket($ticket_id, $user_id) {
 	global $connection;
 	
 	// Perform query
-	$result = $connection -> query("INSERT INTO soldtickets (id, ticket_id, user_id) VALUES ('$id', '$ticket_id', '$user_id')");
+	$result = $connection -> query("INSERT INTO soldtickets (id, ticket_id, user_id) VALUES (default, '$ticket_id', '$user_id')");
 }
 
 function update_soldticket($id, $ticket_id, $user_id) {
