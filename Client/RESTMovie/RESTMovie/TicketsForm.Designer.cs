@@ -201,12 +201,12 @@ namespace RESTMovie
             this.TicketsGrid.BackgroundColor = System.Drawing.Color.DarkRed;
             this.TicketsGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.TicketsGrid.GridColor = System.Drawing.Color.White;
-            this.TicketsGrid.Location = new System.Drawing.Point(-145, 20);
+            this.TicketsGrid.Location = new System.Drawing.Point(12, 27);
             this.TicketsGrid.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.TicketsGrid.Name = "TicketsGrid";
             this.TicketsGrid.RowHeadersWidth = 51;
             this.TicketsGrid.RowTemplate.Height = 29;
-            this.TicketsGrid.Size = new System.Drawing.Size(749, 410);
+            this.TicketsGrid.Size = new System.Drawing.Size(562, 410);
             this.TicketsGrid.TabIndex = 14;
             this.TicketsGrid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.TicketsGrid_CellClick);
             // 

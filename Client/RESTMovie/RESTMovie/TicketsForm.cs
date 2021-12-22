@@ -21,13 +21,22 @@ namespace RESTMovie
             string server = "127.0.0.1";
             string port = "80";
             client = new RestClient(string.Format("http://{0}:{1}/Server/tickets.php", server, port));
+
+            if (Form1.UserLoggedIn == null)
+            {
+                button1.Visible = false;
+            }
+            else
+            {
+                button1.Visible = true;
+            }
+
             if (Form1.UserLoggedIn == null || Form1.UserLoggedIn.isAdmin != 1)
             {
                 groupBox2.Visible = false;
                 add_button.Visible = false;
                 upd_button.Visible = false;
                 del_button.Visible = false;
-                button1.Visible = false;
             }
             else
             {
@@ -35,7 +44,6 @@ namespace RESTMovie
                 add_button.Visible = true;
                 upd_button.Visible = true;
                 del_button.Visible = true;
-                button1.Visible = true;
             }
             Tickets2DataGrid();
         }
@@ -71,6 +79,12 @@ namespace RESTMovie
             var request = new RestRequest(Method.POST);
             request.RequestFormat = DataFormat.Json;
 
+            if (ticketIdBox.Text == "" || movieIdBox.Text == "" || movieTitleBox.Text == "" || streamTimeBox.Text == "")
+            {
+                MessageBox.Show("Kötelező mezők nincsenek kitöltve!");
+                return;
+            }
+
 
             request.AddJsonBody(new
             {
@@ -97,6 +111,12 @@ namespace RESTMovie
             var request = new RestRequest(Method.PUT);
             request.RequestFormat = DataFormat.Json;
 
+            if (ticketIdBox.Text == "" || movieIdBox.Text == "" || movieTitleBox.Text == "" || streamTimeBox.Text == "")
+            {
+                MessageBox.Show("Kötelező mezők nincsenek kitöltve!");
+                return;
+            }
+
             request.AddJsonBody(new
             {
                 ticket_id = int.Parse(ticketIdBox.Text),
@@ -122,9 +142,15 @@ namespace RESTMovie
             var request = new RestRequest(Method.DELETE);
             request.RequestFormat = DataFormat.Json;
 
+            if (ticketIdBox.Text == "")
+            {
+                MessageBox.Show("Kötelező mezők nincsenek kitöltve!");
+                return;
+            }
+
             request.AddJsonBody(new
             {
-                id = int.Parse(ticketIdLabel.Text),
+                id = int.Parse(ticketIdBox.Text),
             });
 
 
@@ -148,6 +174,11 @@ namespace RESTMovie
             var request = new RestRequest(Method.POST);
             request.RequestFormat = DataFormat.Json;
 
+            if (ticketIdBox.Text == "")
+            {
+                MessageBox.Show("Kötelező mezők nincsenek kitöltve!");
+                return;
+            }
 
             request.AddJsonBody(new
             {

@@ -69,6 +69,7 @@ namespace RESTMovie
             this.LoginBox.Controls.Add(this.label1);
             this.LoginBox.Controls.Add(this.F1_PWBOX);
             this.LoginBox.Controls.Add(this.F1_USERNAMEBOX);
+            this.LoginBox.ForeColor = System.Drawing.Color.White;
             this.LoginBox.Location = new System.Drawing.Point(106, 147);
             this.LoginBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.LoginBox.Name = "LoginBox";
@@ -114,6 +115,7 @@ namespace RESTMovie
             // F1_PWBOX
             // 
             this.F1_PWBOX.BackColor = System.Drawing.Color.Maroon;
+            this.F1_PWBOX.ForeColor = System.Drawing.Color.White;
             this.F1_PWBOX.Location = new System.Drawing.Point(128, 62);
             this.F1_PWBOX.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.F1_PWBOX.Name = "F1_PWBOX";
@@ -124,6 +126,7 @@ namespace RESTMovie
             // F1_USERNAMEBOX
             // 
             this.F1_USERNAMEBOX.BackColor = System.Drawing.Color.Maroon;
+            this.F1_USERNAMEBOX.ForeColor = System.Drawing.Color.White;
             this.F1_USERNAMEBOX.Location = new System.Drawing.Point(128, 30);
             this.F1_USERNAMEBOX.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.F1_USERNAMEBOX.Name = "F1_USERNAMEBOX";
